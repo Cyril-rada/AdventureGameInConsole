@@ -51,21 +51,22 @@ int main()
 
     while (!isNotGameOver) {
 
+        system("cls");
         for (int x = 0; x < maxMapX; x++) {
             for (int y = 0; y < maxMapY; y++) {
-                if (x + (y * maxMapY) == H.posX + (H.posY * maxMapY)) {
+                if (x + (y * maxMapX) == H.posX + (H.posY * maxMapX)) {
                     std::cout << H.nom << ' ';
                 }
                 else
-                    std::cout << pMap[x + (y * maxMapY)] << ' ';
+                    std::cout << pMap[x + (y * maxMapX)] << ' ';
             }
             std::cout << '\n';
         }
 
-        while (direction != 'z' && direction != 'q' && direction != 's' && direction != 'd') {
-            std::cin >> direction;
+        while (direction != 'z' && direction != 'Z' && direction != 'q' && direction != 'Q' && direction != 's' && direction != 'S' && direction != 'd' && direction != 'D') {
+            direction = _getch();
         }
-    
+
         if (direction == 'z' || direction == 'Z') {
             H.posX--;
         }
@@ -80,11 +81,11 @@ int main()
         {
             H.posY++;
         }
-    
+
         H.posX = (H.posX + maxMapX) % maxMapX;
         H.posY = (H.posY + maxMapY) % maxMapY;
 
-        direction = _getch();
+        direction = ' ';
         std::cout << "\n\n\n";
-    }    
+    }
 }
