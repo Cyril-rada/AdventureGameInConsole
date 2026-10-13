@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <conio.h>
 
 /*
 PLAN :
@@ -50,13 +51,13 @@ int main()
 
     while (!isNotGameOver) {
 
-        for (int i = 0; i < maxMapX; i++) {
-            for (int j = 0; j < maxMapY; j++) {
-                if (i + (j * maxMapY) == H.posX + (H.posY * maxMapY)) {
+        for (int x = 0; x < maxMapX; x++) {
+            for (int y = 0; y < maxMapY; y++) {
+                if (x + (y * maxMapY) == H.posX + (H.posY * maxMapY)) {
                     std::cout << H.nom << ' ';
                 }
                 else
-                    std::cout << pMap[i + (j * maxMapY)] << ' ';
+                    std::cout << pMap[x + (y * maxMapY)] << ' ';
             }
             std::cout << '\n';
         }
@@ -65,17 +66,17 @@ int main()
             std::cin >> direction;
         }
     
-        if (direction == 'z') {
+        if (direction == 'z' || direction == 'Z') {
             H.posX--;
         }
-        else if (direction == 's') {
+        else if (direction == 's' || direction == 'S') {
             H.posX++;
         }
-        else if (direction == 'q')
+        else if (direction == 'q' || direction == 'Q')
         {
             H.posY--;
         }
-        else if (direction == 'd')
+        else if (direction == 'd' || direction == 'D')
         {
             H.posY++;
         }
@@ -83,6 +84,7 @@ int main()
         H.posX = (H.posX + maxMapX) % maxMapX;
         H.posY = (H.posY + maxMapY) % maxMapY;
 
-        direction = ' ';
+        direction = _getch();
+        std::cout << "\n\n\n";
     }    
 }
