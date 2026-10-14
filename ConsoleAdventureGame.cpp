@@ -35,6 +35,7 @@ struct MC
     char nom;
     int posX;
     int posY;
+    int maxHP;
 };
 
 struct ENEMY
@@ -59,14 +60,14 @@ int main()
 
 
 
-    int Map[maxMapX * maxMapY] = {1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    int Map[maxMapX * maxMapY] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
                                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
                                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+                                   1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+                                   1, 1, 2, 2, 1, 1, 1, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+                                   1, 1, 1, 1, 1, 1, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
                                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-                                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-                                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-                                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-                                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+                                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 
                                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
                                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
     int* pMap = Map;
@@ -81,23 +82,36 @@ int main()
                 if (x + (y * maxMapX) == H.posX + (H.posY * maxMapX)) {
                     std::cout << H.nom << ' ';
                 }
-                if (x + (y * maxMapX) == E1.posX + (E1.posY * maxMapX)) {
+                else if (x + (y * maxMapX) == E1.posX + (E1.posY * maxMapX)) {
                     std::cout << E1.nom << ' ';
                 }
-                if (x + (y * maxMapX) == E2.posX + (E2.posY * maxMapX)) {
+                else if (x + (y * maxMapX) == E2.posX + (E2.posY * maxMapX)) {
                     std::cout << E2.nom << ' ';
                 }
-                if (x + (y * maxMapX) == E3.posX + (E3.posY * maxMapX)) {
+                else if (x + (y * maxMapX) == E3.posX + (E3.posY * maxMapX)) {
                     std::cout << E3.nom << ' ';
                 }
-                if (x + (y * maxMapX) == E4.posX + (E4.posY * maxMapX)) {
+                else if (x + (y * maxMapX) == E4.posX + (E4.posY * maxMapX)) {
                     std::cout << E1.nom << ' ';
                 }
-                if (x + (y * maxMapX) == E5.posX + (E5.posY * maxMapX)) {
+                else if (x + (y * maxMapX) == E5.posX + (E5.posY * maxMapX)) {
                     std::cout << E5.nom << ' ';
                 }
                 else
-                    std::cout << pMap[x + (y * maxMapX)] << ' ';
+                    switch (pMap[x + (y * maxMapX)]) {
+                    case 1:
+                        std::cout << '.' << ' ';
+                        break;
+                    case 2:
+                        std::cout << 'M' << ' ';
+                        break;
+                    case 3:
+                        std::cout << '~' << ' ';
+                        break;
+                    case 4:
+                        std::cout << 'E' << ' ';
+                        break;
+                    }
             }
             std::cout << '\n';
         }
