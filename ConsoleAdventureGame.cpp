@@ -31,7 +31,7 @@ struct MC
 
 int main()
 {
-    bool isNotGameOver = false;
+    bool isGameOver = false;
     const int maxMapX = 10;
     const int maxMapY = 20;
     MC H{ 'H', 0, 0 };
@@ -49,7 +49,7 @@ int main()
                                    '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'};
     char* pMap = Map;
 
-    while (!isNotGameOver) {
+    while (!isGameOver) {
 
         system("cls");
         for (int x = 0; x < maxMapX; x++) {
