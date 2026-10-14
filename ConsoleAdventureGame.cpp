@@ -24,7 +24,7 @@ PLAN :
 
 enum Obstacles
 {
-    GROUND = 0,
+    GROUND = 1,
     HILL,
     LAKE,
     EXIT
@@ -51,6 +51,11 @@ int main()
     const int maxMapY = 20;
     MC H{ 'H', 0, 0 };
     char direction = ' ';
+    ENEMY E1{ 'X', 9, 11 };
+    ENEMY E2{ 'X', 9, 12 };
+    ENEMY E3{ 'X', 9, 13 };
+    ENEMY E4{ 'X', 9, 14 };
+    ENEMY E5{ 'X', 9, 15 };
 
 
 
@@ -75,6 +80,21 @@ int main()
             for (int y = 0; y < maxMapY; y++) {
                 if (x + (y * maxMapX) == H.posX + (H.posY * maxMapX)) {
                     std::cout << H.nom << ' ';
+                }
+                if (x + (y * maxMapX) == E1.posX + (E1.posY * maxMapX)) {
+                    std::cout << E1.nom << ' ';
+                }
+                if (x + (y * maxMapX) == E2.posX + (E2.posY * maxMapX)) {
+                    std::cout << E2.nom << ' ';
+                }
+                if (x + (y * maxMapX) == E3.posX + (E3.posY * maxMapX)) {
+                    std::cout << E3.nom << ' ';
+                }
+                if (x + (y * maxMapX) == E4.posX + (E4.posY * maxMapX)) {
+                    std::cout << E1.nom << ' ';
+                }
+                if (x + (y * maxMapX) == E5.posX + (E5.posY * maxMapX)) {
+                    std::cout << E5.nom << ' ';
                 }
                 else
                     std::cout << pMap[x + (y * maxMapX)] << ' ';
