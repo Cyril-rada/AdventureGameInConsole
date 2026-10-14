@@ -34,7 +34,7 @@ struct MC
     char nom;
     int posX;
     int posY;
-    int maxHP;
+    int HP;
 };
 
 struct ENEMY
@@ -71,10 +71,11 @@ int main()
                                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
     int* pMap = Map;
 
+    int maxHP = H.HP;
 
-
+    
     while (!isGameOver) {
-
+        
 
                 for (int x = 0; x < maxMapX; x++) {
             for (int y = 0; y < maxMapY; y++) {
@@ -114,7 +115,8 @@ int main()
             }
             std::cout << '\n';
         }
-        std::cout << '\n' << H.maxHP;
+                
+        std::cout << '\n' << H.HP << '/' << maxHP;
         while (direction != 'z' && direction != 'Z' && direction != 'q' && direction != 'Q' && direction != 's' && direction != 'S' && direction != 'd' && direction != 'D') {
             direction = _getch();
         }
@@ -144,8 +146,25 @@ int main()
             H.posX = newCoordX;
             H.posY = newCoordY;
         }
+
+        bool onEnemy =
+            (H.posX == E1.posX && H.posY == E1.posY) ||
+            (H.posX == E2.posX && H.posY == E2.posY) ||
+            (H.posX == E3.posX && H.posY == E3.posY) ||
+            (H.posX == E4.posX && H.posY == E4.posY) ||
+            (H.posX == E5.posX && H.posY == E5.posY);
+
+        if (onEnemy)
+            H.HP--;
+
+        if (H.HP <= 0)
+            isGameOver = true;
+
         direction = ' ';
         std::cout << "\n\n\n";
         system("cls");
     }
+
+    if (isGameOver == true)
+        std::cout << "\n\nGUEYMME AUVEURE\n\n";
 }
