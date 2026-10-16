@@ -80,6 +80,18 @@ int main()
                     else if (x == Enemies[E].posX && y == Enemies[E].posY) {
                         std::cout << Enemies[E].nom << ' ';
                     }
+                    else if (x == Enemies[E+1].posX && y == Enemies[E+1].posY) {
+                        std::cout << Enemies[E+1].nom << ' ';
+                    }
+                    else if (x == Enemies[E+2].posX && y == Enemies[E+2].posY) {
+                        std::cout << Enemies[E+2].nom << ' ';
+                    }
+                    else if (x == Enemies[E+3].posX && y == Enemies[E+3].posY) {
+                        std::cout << Enemies[E+3].nom << ' ';
+                    }
+                    else if (x == Enemies[E+4].posX && y == Enemies[E+4].posY) {
+                        std::cout << Enemies[E+4].nom << ' ';
+                    }
                     else
                         switch (pMap[x * maxMapY + y]) {
                         case 1:
