@@ -37,6 +37,7 @@ struct ENEMY
     int posX;              
     int posY;
 };
+
 void afficher_map(int map_size_x, int map_size_y, MC H, const std::vector<ENEMY>&Monstres, int* p) {
         for (int j = 0; j < map_size_y; j++) {
             for (int i = 0; i < map_size_x; i++) {
@@ -80,6 +81,7 @@ void afficher_map(int map_size_x, int map_size_y, MC H, const std::vector<ENEMY>
     }
 int main()
 {
+    std::cout << "changement a la con, comme demande";
     bool isGameOver = false;
     const int maxMapX = 20;
     const int maxMapY = 10;
