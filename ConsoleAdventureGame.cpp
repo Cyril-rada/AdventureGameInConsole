@@ -81,7 +81,7 @@ void afficher_map(int map_size_x, int map_size_y, MC H, const std::vector<ENEMY>
     }
 int main()
 {
-    std::cout << "changement a la con, comme demande";
+    std::cout << "changement a la con, comme demande\n";
     bool isGameOver = false;
     const int maxMapX = 20;
     const int maxMapY = 10;
