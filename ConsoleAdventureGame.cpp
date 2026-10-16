@@ -26,7 +26,7 @@ struct MC
     char nom;
     int posX;
     int posY;
-    int maxHP;
+    int HP;
 };
 
 struct ENEMY
@@ -63,33 +63,34 @@ int main()
                                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
     int* pMap = Map;
 
+    int maxHP = H.HP;
 
-
+    
     while (!isGameOver) {
+        
 
-
-        for (int x = 0; x < maxMapX; x++) {
+                for (int x = 0; x < maxMapX; x++) {
             for (int y = 0; y < maxMapY; y++) {
-                if (x + (y * maxMapX) == H.posX + (H.posY * maxMapX)) {
+                if (x == H.posX && y == H.posY) {
                     std::cout << H.nom << ' ';
                 }
-                else if (x + (y * maxMapX) == E1.posX + (E1.posY * maxMapX)) {
+                else if (x == E1.posX && y == E1.posY) {
                     std::cout << E1.nom << ' ';
                 }
-                else if (x + (y * maxMapX) == E2.posX + (E2.posY * maxMapX)) {
+                else if (x == E2.posX && y == E2.posY) {
                     std::cout << E2.nom << ' ';
                 }
-                else if (x + (y * maxMapX) == E3.posX + (E3.posY * maxMapX)) {
+                else if (x == E3.posX && y == E3.posY) {
                     std::cout << E3.nom << ' ';
                 }
-                else if (x + (y * maxMapX) == E4.posX + (E4.posY * maxMapX)) {
-                    std::cout << E1.nom << ' ';
+                else if (x == E4.posX && y == E4.posY) {
+                    std::cout << E4.nom << ' ';
                 }
-                else if (x + (y * maxMapX) == E5.posX + (E5.posY * maxMapX)) {
+                else if (x == E5.posX && y == E5.posY) {
                     std::cout << E5.nom << ' ';
                 }
                 else
-                    switch (pMap[x + (y * maxMapX)]) {
+                    switch (pMap[x * maxMapY + y]) {
                     case 1:
                         std::cout << '.' << ' ';
                         break;
@@ -106,31 +107,56 @@ int main()
             }
             std::cout << '\n';
         }
-        std::cout << '\n' << H.maxHP;
+                
+        std::cout << '\n' << H.HP << '/' << maxHP;
         while (direction != 'z' && direction != 'Z' && direction != 'q' && direction != 'Q' && direction != 's' && direction != 'S' && direction != 'd' && direction != 'D') {
             direction = _getch();
         }
 
+        int newCoordX = H.posX;
+        int newCoordY = H.posY;
+
         if (direction == 'z' || direction == 'Z') {
-            H.posX--;
+            newCoordX--;
         }
         else if (direction == 's' || direction == 'S') {
-            H.posX++;
+            newCoordX++;
         }
-        else if (direction == 'q' || direction == 'Q')
-        {
-            H.posY--;
+        else if (direction == 'q' || direction == 'Q') {
+            newCoordY--;
         }
-        else if (direction == 'd' || direction == 'D')
-        {
-            H.posY++;
+        else if (direction == 'd' || direction == 'D') {
+            newCoordY++;
         }
 
-        H.posX = (H.posX + maxMapX) % maxMapX;
-        H.posY = (H.posY + maxMapY) % maxMapY;
+        newCoordX = (newCoordX + maxMapX) % maxMapX;
+        newCoordY = (newCoordY + maxMapY) % maxMapY;
+
+        int endCoords = pMap[newCoordX * maxMapY + newCoordY];
+
+        if (endCoords != HILL && endCoords != LAKE) {
+            H.posX = newCoordX;
+            H.posY = newCoordY;
+        }
+
+        bool onEnemy =
+            (H.posX == E1.posX && H.posY == E1.posY) ||
+            (H.posX == E2.posX && H.posY == E2.posY) ||
+            (H.posX == E3.posX && H.posY == E3.posY) ||
+            (H.posX == E4.posX && H.posY == E4.posY) ||
+            (H.posX == E5.posX && H.posY == E5.posY);
+
+        if (onEnemy)
+            H.HP--;
+
+        if (H.HP <= 0)
+            isGameOver = true;
 
         direction = ' ';
         std::cout << "\n\n\n";
         system("cls");
     }
+
+    if (isGameOver == true)
+        std::cout << "\n\nGUEYMME AUVEURE\n\n";
 }
