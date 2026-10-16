@@ -3,22 +3,14 @@
 
 /*
 PLAN :
-    
-    
-    
     - before moving check with a while loop if the hero isn't going off-course or
-    in a wall/water
-    
-    - check if player is dead by checking if he still is on the map
-    
+    in a wall/water    
+    - check if player is dead by checking if he still is on the map    
     - make enemies unable to "eat" the exit block E
     - if E is inexistant mark the game a won
     - use #include to make all the levels and make sure to add a way to wipe
     the previous level at the start of the new one
-
-    ? how to let the enemies know they can go down?
-
-    
+    ? how to let the enemies know they can go down?    
 */
 
 enum Obstacles
