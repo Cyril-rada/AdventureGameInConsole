@@ -16,33 +16,73 @@ PLAN :
 */
 
 enum Obstacles
-{
-    GROUND = 1,
-    HILL,
-    LAKE,
-    EXIT
-};
-
-struct MC
-{
-    char nom;
-    int posX;
+{                          
+    GROUND = 1,            
+    HILL,                  
+    LAKE,                  
+    EXIT                   
+};                         
+                           
+struct MC                  
+{                          
+    char nom;              
+    int posX;              
+    int posY;              
+    int HP;                
+};                         
+                           
+struct ENEMY               
+{                          
+    char nom;              
+    int posX;              
     int posY;
-    int HP;
 };
+void afficher_map(int map_size_x, int map_size_y, MC H, const std::vector<ENEMY>&Monstres, int* p) {
+        for (int j = 0; j < map_size_y; j++) {
+            for (int i = 0; i < map_size_x; i++) {
+                int index = i + (j * map_size_x);
 
-struct ENEMY
-{
-    char nom;
-    int posX;
-    int posY;
-};
+                if (i == H.posX && j == H.posY) {
+                    std::cout << H.nom << ' ';
+                }
+                else {
+                    bool monstre_affiche = false;
 
+                    for (const ENEMY& monstre : Monstres) {
+                        if (i == monstre.posX && j == monstre.posY) {
+                            std::cout << monstre.nom << ' ';
+                            monstre_affiche = true;
+                            break;
+                        }
+                    }
+
+                    if (!monstre_affiche) {
+                        
+                        switch (p[index]) {
+                        case 1:
+                            std::cout << '.' << ' ';
+                            break;
+                        case 2:
+                            std::cout << 'M' << ' ';
+                            break;
+                        case 3:
+                            std::cout << '~' << ' ';
+                            break;
+                        case 4:
+                            std::cout << 'E' << ' ';
+                            break;
+                        }
+                    }
+                }
+            }
+            std::cout << '\n';
+        }
+    }
 int main()
 {
     bool isGameOver = false;
-    const int maxMapX = 10;
-    const int maxMapY = 20;
+    const int maxMapX = 20;
+    const int maxMapY = 10;
     MC H{ 'H', 0, 0, 3 };
     char direction = ' ';
 
@@ -67,49 +107,12 @@ int main()
     int* pMap = Map;
 
     int maxHP = H.HP;
-
+    
 
     while (!isGameOver) {
 
-        for (int E = 0; E < Enemies.size(); E++) {
-            for (int y = 0; y < maxMapY; y++) {
-                for (int x = 0; x < maxMapX; x++) {
-                    if (x == H.posX && y == H.posY) {
-                        std::cout << H.nom << ' ';
-                    }
-                    else if (x == Enemies[E].posX && y == Enemies[E].posY) {
-                        std::cout << Enemies[E].nom << ' ';
-                    }
-                    else if (x == Enemies[E+1].posX && y == Enemies[E+1].posY) {
-                        std::cout << Enemies[E+1].nom << ' ';
-                    }
-                    else if (x == Enemies[E+2].posX && y == Enemies[E+2].posY) {
-                        std::cout << Enemies[E+2].nom << ' ';
-                    }
-                    else if (x == Enemies[E+3].posX && y == Enemies[E+3].posY) {
-                        std::cout << Enemies[E+3].nom << ' ';
-                    }
-                    else if (x == Enemies[E+4].posX && y == Enemies[E+4].posY) {
-                        std::cout << Enemies[E+4].nom << ' ';
-                    }
-                    else
-                        switch (pMap[x * maxMapY + y]) {
-                        case 1:
-                            std::cout << '.' << ' ';
-                            break;
-                        case 2:
-                            std::cout << 'M' << ' ';
-                            break;
-                        case 3:
-                            std::cout << '~' << ' ';
-                            break;
-                        case 4:
-                            std::cout << 'E' << ' ';
-                            break;
-                        }
-                }
-                std::cout << '\n';
-            }
+        
+        afficher_map(20, 10, H, Enemies, pMap);
 
             std::cout << '\n' << H.HP << '/' << maxHP;
             while (direction != 'z' && direction != 'Z' && direction != 'q' && direction != 'Q' && direction != 's' && direction != 'S' && direction != 'd' && direction != 'D') {
@@ -120,16 +123,16 @@ int main()
             int newCoordY = H.posY;
 
             if (direction == 'z' || direction == 'Z') {
-                newCoordX--;
-            }
-            else if (direction == 's' || direction == 'S') {
-                newCoordX++;
-            }
-            else if (direction == 'q' || direction == 'Q') {
                 newCoordY--;
             }
-            else if (direction == 'd' || direction == 'D') {
+            else if (direction == 's' || direction == 'S') {
                 newCoordY++;
+            }
+            else if (direction == 'q' || direction == 'Q') {
+                newCoordX--;
+            }
+            else if (direction == 'd' || direction == 'D') {
+                newCoordX++;
             }
 
             newCoordX = (newCoordX + maxMapX) % maxMapX;
@@ -141,12 +144,11 @@ int main()
                 H.posX = newCoordX;
                 H.posY = newCoordY;
             }
-
-            bool onEnemy = (H.posX == Enemies[E].posX && H.posY == Enemies[E].posY);
-
-            if (onEnemy)
-                H.HP--;
-
+            for (int T{}; T < Enemies.size(); T++) {
+                bool onEnemy = (H.posX == Enemies[T].posX && H.posY == Enemies[T].posY);
+                if (onEnemy)
+                    H.HP--;
+            }
             if (H.HP <= 0)
                 isGameOver = true;
 
@@ -155,7 +157,6 @@ int main()
             system("cls");
         }
 
-        if (isGameOver == true)
+    if (isGameOver == true)
             std::cout << "\n\nGUEYMME AUVEURE\n\n";
     }
-}
