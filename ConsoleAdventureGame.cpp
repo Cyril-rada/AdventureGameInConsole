@@ -139,7 +139,7 @@ int main()
             newCoordY = (newCoordY + maxMapY) % maxMapY;
 
             int endCoords = pMap[newCoordX * maxMapY + newCoordY];
-
+            
             if (endCoords != HILL && endCoords != LAKE) {
                 H.posX = newCoordX;
                 H.posY = newCoordY;
