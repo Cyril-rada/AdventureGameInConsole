@@ -180,9 +180,8 @@ int main()
                 if (enemyCoords != HILL && enemyCoords != LAKE) {
                     Enemies[ED].posX = enemyCoordX;
                     Enemies[ED].posY = enemyCoordY;
-
-                    enemyDir = rand() % 5;
                 }
+                enemyDir = rand() % 5;
             }
 
             
