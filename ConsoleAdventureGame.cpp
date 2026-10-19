@@ -89,10 +89,10 @@ int main()
     char direction = ' ';
 
     std::vector<ENEMY> Enemies{
-        { 'X', 9, 11 },
-        { 'X', 9, 12 },
-        { 'X', 9, 13 },
-        { 'X', 9, 14 },
+        { 'X', 19, 1 },
+        { 'X', 19, 2 },
+        { 'X', 19, 3 },
+        { 'X', 19, 4 },
         { 'X', 6, 7 }
     };
 
@@ -140,7 +140,7 @@ int main()
             newCoordX = (newCoordX + maxMapX) % maxMapX;
             newCoordY = (newCoordY + maxMapY) % maxMapY;
 
-            int endCoords = pMap[newCoordX * maxMapY + newCoordY];
+            int endCoords = pMap[newCoordX + (newCoordY * maxMapX)];
             
             if (endCoords != HILL && endCoords != LAKE) {
                 H.posX = newCoordX;
@@ -153,12 +153,11 @@ int main()
             }
             if (H.HP <= 0)
                 isGameOver = true;
-
-            direction = ' ';
-            std::cout << "\n\n\n";
+            
+            direction = ' ';            
             system("cls");
         }
-
+    
     if (isGameOver == true)
             std::cout << "\n\nGUEYMME AUVEURE\n\n";
     }
