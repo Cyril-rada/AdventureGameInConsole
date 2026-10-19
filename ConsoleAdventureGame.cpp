@@ -1,6 +1,8 @@
 #include <iostream>
 #include <conio.h>
 #include <vector>
+#include <fstream>
+#include <string>
 
 /*
 PLAN :
@@ -36,159 +38,213 @@ struct ENEMY
     int posY;
 };
 
-void afficher_map(int map_size_x, int map_size_y, MC H, const std::vector<ENEMY>&Monstres, int* p) {
-        for (int j = 0; j < map_size_y; j++) {
-            for (int i = 0; i < map_size_x; i++) {
-                int index = i + (j * map_size_x);
+bool charger_niveau(const std::string& filename, int* mapArray, int maxMapX, int maxMapY, MC& hero, std::vector<ENEMY>& enemies) {
+    std::ifstream file(filename);
 
-                if (i == H.posX && j == H.posY) {
-                    std::cout << H.nom << ' ';
+
+    if (!file.is_open()) {
+        return false;
+    }
+
+    enemies.clear();
+    bool heroTrouve = false;
+
+    hero.posX = 0;
+    hero.posY = 0;
+
+    char tile;
+
+    for (int y = 0; y < maxMapY; ++y) {
+        for (int x = 0; x < maxMapX; ++x) {
+
+
+            if (file >> tile) {
+                int index = x + (y * maxMapX);
+
+
+                switch (tile) {
+                case '.': mapArray[index] = GROUND; break;
+                case 'M': mapArray[index] = HILL; break;
+                case '~': mapArray[index] = LAKE; break;
+                case 'E': mapArray[index] = EXIT; break;
+                case 'H':
+                    hero.posX = x;
+                    hero.posY = y;
+                    mapArray[index] = GROUND;
+                    heroTrouve = true;
+                    break;
+                default:  mapArray[index] = GROUND; break;
                 }
-                else {
-                    bool monstre_affiche = false;
+            }
+        }
+    }
 
-                    for (const ENEMY& monstre : Monstres) {
-                        if (i == monstre.posX && j == monstre.posY) {
-                            std::cout << monstre.nom << ' ';
-                            monstre_affiche = true;
-                            break;
-                        }
+    file.close();
+
+
+    enemies.push_back({ 'X', 19, 1 });
+    enemies.push_back({ 'X', 19, 2 });
+    enemies.push_back({ 'X', 6, 7 });
+
+    return true;
+}
+
+void afficher_map(int map_size_x, int map_size_y, MC H, const std::vector<ENEMY>& Monstres, int* p) {
+    for (int j = 0; j < map_size_y; j++) {
+        for (int i = 0; i < map_size_x; i++) {
+            int index = i + (j * map_size_x);
+
+            if (i == H.posX && j == H.posY) {
+                std::cout << H.nom << ' ';
+            }
+            else {
+                bool monstre_affiche = false;
+
+                for (const ENEMY& monstre : Monstres) {
+                    if (i == monstre.posX && j == monstre.posY) {
+                        std::cout << monstre.nom << ' ';
+                        monstre_affiche = true;
+                        break;
                     }
+                }
 
-                    if (!monstre_affiche) {
-                        
-                        switch (p[index]) {
-                        case 1:
-                            std::cout << '.' << ' ';
-                            break;
-                        case 2:
-                            std::cout << 'M' << ' ';
-                            break;
-                        case 3:
-                            std::cout << '~' << ' ';
-                            break;
-                        case 4:
-                            std::cout << 'E' << ' ';
-                            break;
-                        }
+                if (!monstre_affiche) {
+                    switch (p[index]) {
+                    case GROUND: std::cout << '.' << ' '; break;
+                    case HILL:   std::cout << 'M' << ' '; break;
+                    case LAKE:   std::cout << '~' << ' '; break;
+                    case EXIT:   std::cout << 'E' << ' '; break;
                     }
                 }
             }
-            std::cout << '\n';
         }
+        std::cout << '\n';
     }
+}
 int main()
 {
     std::cout << "changement a la con, comme demande\n";
     bool isGameOver = false;
+    bool isGameWon = false;
     const int maxMapX = 20;
     const int maxMapY = 10;
     MC H{ 'H', 0, 0, 3 };
     char direction = ' ';
 
-    std::vector<ENEMY> Enemies{
-        { 'X', 19, 1 },
-        { 'X', 19, 2 },
-        { 'X', 19, 3 },
-        { 'X', 19, 4 },
-        { 'X', 6, 7 }
-    };
+    std::vector<ENEMY> Enemies;
 
-    int Map[maxMapX * maxMapY] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                                   1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                                   1, 1, 2, 2, 1, 1, 1, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                                   1, 1, 1, 1, 1, 1, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1,
-                                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+
+    int Map[maxMapX * maxMapY] = { 0 };
+
     int* pMap = Map;
 
     int maxHP = H.HP;
-    
 
-    while (!isGameOver) {
+    int currentLevel = 1;
 
-        
-        afficher_map(20, 10, H, Enemies, pMap);
-
-            std::cout << '\n' << H.HP << '/' << maxHP;
-            while (direction != 'z' && direction != 'Z' && direction != 'q' && direction != 'Q' && direction != 's' && direction != 'S' && direction != 'd' && direction != 'D') {
-                direction = _getch();
-            }
-
-            int newCoordX = H.posX;
-            int newCoordY = H.posY;
-
-            if (direction == 'z' || direction == 'Z') {
-                newCoordY--;
-            }
-            else if (direction == 's' || direction == 'S') {
-                newCoordY++;
-            }
-            else if (direction == 'q' || direction == 'Q') {
-                newCoordX--;
-            }
-            else if (direction == 'd' || direction == 'D') {
-                newCoordX++;
-            }
-
-            newCoordX = (newCoordX + maxMapX) % maxMapX;
-            newCoordY = (newCoordY + maxMapY) % maxMapY;
-
-            int endCoords = pMap[newCoordX + (newCoordY * maxMapX)];
-            
-            if (endCoords != HILL && endCoords != LAKE) {
-                H.posX = newCoordX;
-                H.posY = newCoordY;
-            }
-            for (int T{}; T < Enemies.size(); T++) {
-                bool onEnemy = (H.posX == Enemies[T].posX && H.posY == Enemies[T].posY);
-                if (onEnemy)
-                    H.HP--;
-            }
-            if (H.HP <= 0)
-                isGameOver = true;
-
-            int enemyDir = rand() % 5;;
-            
-            for (int ED{}; ED < Enemies.size(); ED++) {
-
-                int enemyCoordX = Enemies[ED].posX;
-                int enemyCoordY = Enemies[ED].posY;
-
-                if (enemyDir == 1) {
-                    enemyCoordY--;
-                }
-                else if (enemyDir == 2) {
-                    enemyCoordY++;
-                }
-                else if (enemyDir == 3) {
-                    enemyCoordX--;
-                }
-                else if (enemyDir == 4) {
-                    enemyCoordX++;
-                }
-                
-                enemyCoordX = (enemyCoordX + maxMapX) % maxMapX;
-                enemyCoordY = (enemyCoordY + maxMapY) % maxMapY;
-
-                int enemyCoords = pMap[enemyCoordX + (enemyCoordY * maxMapX)];
-
-                if (enemyCoords != HILL && enemyCoords != LAKE) {
-                    Enemies[ED].posX = enemyCoordX;
-                    Enemies[ED].posY = enemyCoordY;
-                }
-                enemyDir = rand() % 5;
-            }
-
-            
-            direction = ' ';            
-            system("cls");
-        }
-    
-    if (isGameOver == true)
-            std::cout << "\n\nGUEYMME AUVEURE\n\n";
+    std::string levelFileName = "level" + std::to_string(currentLevel) + ".txt";
+    if (!charger_niveau(levelFileName, pMap, maxMapX, maxMapY, H, Enemies)) {
+        std::cout << "Erreur: Impossible de charger le fichier " << levelFileName << "\n";
+        std::cout << "Avez-vous cree les fichiers level1.txt, level2.txt, etc. ?\n";
+        return 1;
     }
+
+    while (!isGameOver && !isGameWon) {
+
+
+        afficher_map(20, 10, H, Enemies, pMap);
+        std::cout << "\nHP: " << H.HP << '/' << maxHP << " | Niveau: " << currentLevel << "\n";
+
+        while (direction != 'z' && direction != 'Z' && direction != 'q' && direction != 'Q' && direction != 's' && direction != 'S' && direction != 'd' && direction != 'D') {
+            direction = _getch();
+        }
+
+        int newCoordX = H.posX;
+        int newCoordY = H.posY;
+
+        if (direction == 'z' || direction == 'Z') {
+            newCoordY--;
+        }
+        else if (direction == 's' || direction == 'S') {
+            newCoordY++;
+        }
+        else if (direction == 'q' || direction == 'Q') {
+            newCoordX--;
+        }
+        else if (direction == 'd' || direction == 'D') {
+            newCoordX++;
+        }
+
+        newCoordX = (newCoordX + maxMapX) % maxMapX;
+        newCoordY = (newCoordY + maxMapY) % maxMapY;
+
+        int endCoords = pMap[newCoordX + (newCoordY * maxMapX)];
+
+        if (endCoords == EXIT) {
+            currentLevel++;
+            std::string nextLevelFileName = "level" + std::to_string(currentLevel) + ".txt";
+
+            system("cls");
+
+            if (!charger_niveau(nextLevelFileName, pMap, maxMapX, maxMapY, H, Enemies)) {
+                isGameWon = true;
+            }
+            direction = ' ';
+            continue;
+        }
+
+        if (endCoords != HILL && endCoords != LAKE) {
+            H.posX = newCoordX;
+            H.posY = newCoordY;
+        }
+        for (int T{}; T < Enemies.size(); T++) {
+            bool onEnemy = (H.posX == Enemies[T].posX && H.posY == Enemies[T].posY);
+            if (onEnemy)
+                H.HP--;
+        }
+        if (H.HP <= 0)
+            isGameOver = true;
+
+        int enemyDir = rand() % 5;;
+
+        for (int ED{}; ED < Enemies.size(); ED++) {
+
+            int enemyCoordX = Enemies[ED].posX;
+            int enemyCoordY = Enemies[ED].posY;
+
+            if (enemyDir == 1) {
+                enemyCoordY--;
+            }
+            else if (enemyDir == 2) {
+                enemyCoordY++;
+            }
+            else if (enemyDir == 3) {
+                enemyCoordX--;
+            }
+            else if (enemyDir == 4) {
+                enemyCoordX++;
+            }
+
+            enemyCoordX = (enemyCoordX + maxMapX) % maxMapX;
+            enemyCoordY = (enemyCoordY + maxMapY) % maxMapY;
+
+            int enemyCoords = pMap[enemyCoordX + (enemyCoordY * maxMapX)];
+
+            if (enemyCoords != HILL && enemyCoords != LAKE && enemyCoords != EXIT) {
+                Enemies[ED].posX = enemyCoordX;
+                Enemies[ED].posY = enemyCoordY;
+            }
+            enemyDir = rand() % 5;
+        }
+
+
+        direction = ' ';
+        system("cls");
+    }
+
+    if (isGameOver == true)
+        std::cout << "\n\nGUEYMME AUVEURE\n\n";
+    else if (isGameWon) {
+        std::cout << "\n\nCongratulations, my little cattywampus cucumber!\n\n";
+    }
+}
