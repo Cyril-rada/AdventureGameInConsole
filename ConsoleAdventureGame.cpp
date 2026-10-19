@@ -4,15 +4,13 @@
 
 /*
 PLAN :
-    - before moving check with a while loop if the hero isn't going off-course or
-    in a wall/water    
-    - check if player is dead by checking if he still is on the map    
+    - check if player is dead by checking if he still is on the map
     - make enemies unable to "eat" the exit block E
     - if E is inexistant mark the game a won
     - use #include to make all the levels and make sure to add a way to wipe
     the previous level at the start of the new one
 
-    ? how to let the enemies know they can go down?    
+    ? how to let the enemies know they can go down?
 */
 
 enum Obstacles
@@ -30,11 +28,11 @@ struct MC
     int posY;              
     int HP;                
 };                         
-                           
+
 struct ENEMY               
-{                          
-    char nom;              
-    int posX;              
+{
+    char nom;
+    int posX;
     int posY;
 };
 
@@ -153,6 +151,35 @@ int main()
             }
             if (H.HP <= 0)
                 isGameOver = true;
+
+            int enemyDir = rand() % 5;;
+            int enemyCoordX{};
+            int enemyCoordY{};
+            for (int ED{}; ED < Enemies.size(); ED++) {
+                if (enemyDir == 1) {
+                    Enemies[ED].posX++;
+                }
+                else if (enemyDir == 2) {
+                    Enemies[ED].posX++;
+                }
+                else if (enemyDir == 3) {
+                    Enemies[ED].posX++;
+                }
+                else if (enemyDir == 4) {
+                    Enemies[ED].posX++;
+                }
+                
+                enemyCoordX = (enemyCoordX + maxMapX) % maxMapX;
+                enemyCoordY = (enemyCoordY + maxMapY) % maxMapY;
+
+                int enemyCoords = pMap[enemyCoordX + (enemyCoordY * maxMapX)];
+
+                if (enemyCoords != HILL && enemyCoords != LAKE) {
+                    Enemies[ED].posX = enemyCoordX;
+                    Enemies[ED].posY = enemyCoordY;
+                }
+            }
+
             
             direction = ' ';            
             system("cls");
