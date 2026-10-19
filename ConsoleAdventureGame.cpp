@@ -153,20 +153,23 @@ int main()
                 isGameOver = true;
 
             int enemyDir = rand() % 5;;
-            int enemyCoordX{};
-            int enemyCoordY{};
+            
             for (int ED{}; ED < Enemies.size(); ED++) {
+
+                int enemyCoordX = Enemies[ED].posX;
+                int enemyCoordY = Enemies[ED].posY;
+
                 if (enemyDir == 1) {
-                    Enemies[ED].posX++;
+                    enemyCoordY--;
                 }
                 else if (enemyDir == 2) {
-                    Enemies[ED].posX++;
+                    enemyCoordY++;
                 }
                 else if (enemyDir == 3) {
-                    Enemies[ED].posX++;
+                    enemyCoordX--;
                 }
                 else if (enemyDir == 4) {
-                    Enemies[ED].posX++;
+                    enemyCoordX++;
                 }
                 
                 enemyCoordX = (enemyCoordX + maxMapX) % maxMapX;
@@ -177,6 +180,8 @@ int main()
                 if (enemyCoords != HILL && enemyCoords != LAKE) {
                     Enemies[ED].posX = enemyCoordX;
                     Enemies[ED].posY = enemyCoordY;
+
+                    enemyDir = rand() % 5;
                 }
             }
 
