@@ -4,16 +4,6 @@
 #include <fstream>
 #include <string>
 
-/*
-PLAN :
-    - check if player is dead by checking if he still is on the map
-    - make enemies unable to "eat" the exit block E
-    - if E is inexistant mark the game a won
-    - use #include to make all the levels and make sure to add a way to wipe
-    the previous level at the start of the new one
-
-    ? how to let the enemies know they can go down?
-*/
 
 enum Obstacles
 {                          
@@ -38,7 +28,7 @@ struct ENEMY
     int posY;
 };
 
-bool charger_niveau(const std::string& filename, int* mapArray, int maxMapX, int maxMapY, MC& hero, std::vector<ENEMY>& enemies) {
+bool level_loader(const std::string& filename, int* mapArray, int maxMapX, int maxMapY, MC& hero, std::vector<ENEMY>& enemies) {
     std::ifstream file(filename);
 
 
@@ -92,7 +82,7 @@ bool charger_niveau(const std::string& filename, int* mapArray, int maxMapX, int
     return true;
 }
 
-void afficher_map(int map_size_x, int map_size_y, MC H, const std::vector<ENEMY>& Monstres, int* p) {
+void show_map(int map_size_x, int map_size_y, MC H, const std::vector<ENEMY>& Monstres, int* p) {
     for (int j = 0; j < map_size_y; j++) {
         for (int i = 0; i < map_size_x; i++) {
             int index = i + (j * map_size_x);
@@ -146,7 +136,7 @@ int main()
     int currentLevel = 1;
 
     std::string levelFileName = "level" + std::to_string(currentLevel) + ".txt";
-    if (!charger_niveau(levelFileName, pMap, maxMapX, maxMapY, H, Enemies)) {
+    if (!level_loader(levelFileName, pMap, maxMapX, maxMapY, H, Enemies)) {
         std::cout << "Erreur: Impossible de charger le fichier " << levelFileName << "\n";
         std::cout << "Avez-vous cree les fichiers level1.txt, level2.txt, etc. ?\n";
         return 1;
@@ -155,7 +145,7 @@ int main()
     while (!isGameOver && !isGameWon) {
 
 
-        afficher_map(20, 10, H, Enemies, pMap);
+        show_map(20, 10, H, Enemies, pMap);
         std::cout << "\nHP: " << H.HP << '/' << maxHP << " | Niveau: " << currentLevel << "\n";
 
         while (direction != 'z' && direction != 'Z' && direction != 'q' && direction != 'Q' && direction != 's' && direction != 'S' && direction != 'd' && direction != 'D') {
@@ -189,7 +179,7 @@ int main()
 
             system("cls");
 
-            if (!charger_niveau(nextLevelFileName, pMap, maxMapX, maxMapY, H, Enemies)) {
+            if (!level_loader(nextLevelFileName, pMap, maxMapX, maxMapY, H, Enemies)) {
                 isGameWon = true;
             }
             direction = ' ';
