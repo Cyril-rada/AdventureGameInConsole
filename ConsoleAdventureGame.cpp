@@ -52,10 +52,6 @@ bool charger_niveau(const std::string& filename, int* mapArray, int maxMapX, int
     hero.posX = 0;
     hero.posY = 0;
 
-    for (int E{}; E < enemies.size(); E++) {
-        enemies[E].posX = 0;
-        enemies[E].posY = 0;
-    }
 
 
     int EN{};
@@ -82,10 +78,8 @@ bool charger_niveau(const std::string& filename, int* mapArray, int maxMapX, int
                     heroTrouve = true;
                     break;
                 case 'X':
-                    enemies[EN].posX = x;
-                    enemies[EN].posY = y;
+                    enemies.push_back({ 'X', x, y });
                     mapArray[index] = GROUND;
-                    EN++;
                     break;
                 default:  mapArray[index] = GROUND; break;
                 }
@@ -94,8 +88,6 @@ bool charger_niveau(const std::string& filename, int* mapArray, int maxMapX, int
     }
 
     file.close();
-
-
 
     return true;
 }
