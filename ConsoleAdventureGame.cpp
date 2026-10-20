@@ -245,7 +245,7 @@ int main()
         system("cls");
     }
 
-    if (isGameOver == true)
+    if (isGameOver)
         std::cout << "\n\nGAME OVER\n\n";
     else if (isGameWon) {
         std::cout << "\n\nCONGRATULATIONS, my little cattywampus cucumber!\n\n"; // reférence à TADC épisode 7
