@@ -52,6 +52,14 @@ bool charger_niveau(const std::string& filename, int* mapArray, int maxMapX, int
     hero.posX = 0;
     hero.posY = 0;
 
+    for (int E{}; E < enemies.size(); E++) {
+        enemies[E].posX = 0;
+        enemies[E].posY = 0;
+    }
+
+
+    int EN{};
+
     char tile;
 
     for (int y = 0; y < maxMapY; ++y) {
@@ -73,6 +81,12 @@ bool charger_niveau(const std::string& filename, int* mapArray, int maxMapX, int
                     mapArray[index] = GROUND;
                     heroTrouve = true;
                     break;
+                case 'X':
+                    enemies[EN].posX = x;
+                    enemies[EN].posY = y;
+                    mapArray[index] = GROUND;
+                    EN++;
+                    break;
                 default:  mapArray[index] = GROUND; break;
                 }
             }
@@ -82,9 +96,6 @@ bool charger_niveau(const std::string& filename, int* mapArray, int maxMapX, int
     file.close();
 
 
-    enemies.push_back({ 'X', 19, 1 });
-    enemies.push_back({ 'X', 19, 2 });
-    enemies.push_back({ 'X', 6, 7 });
 
     return true;
 }
@@ -243,8 +254,8 @@ int main()
     }
 
     if (isGameOver == true)
-        std::cout << "\n\nGUEYMME AUVEURE\n\n";
+        std::cout << "\n\nGAME OVER\n\n";
     else if (isGameWon) {
-        std::cout << "\n\nCongratulations, my little cattywampus cucumber!\n\n";
+        std::cout << "\n\nCONGRATULATIONS, my little cattywampus cucumber!\n\n"; // reférence à TADC épisode 7
     }
 }
