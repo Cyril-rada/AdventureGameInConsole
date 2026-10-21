@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\jerfi\\OneDrive\\Documents\\GitHub\\AdventureGameInConsole\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1CC39613-A731-4067-AE56-F38B0127E52C}|ConsoleAdventureGame.vcxproj|C:\\Users\\jerfi\\OneDrive\\Documents\\GitHub\\AdventureGameInConsole\\ConsoleAdventureGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{1CC39613-A731-4067-AE56-F38B0127E52C}|ConsoleAdventureGame.vcxproj|solutionrelative:ConsoleAdventureGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1CC39613-A731-4067-AE56-F38B0127E52C}|ConsoleAdventureGame.vcxproj|C:\\Users\\jerfi\\OneDrive\\Documents\\GitHub\\AdventureGameInConsole\\level1.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{1CC39613-A731-4067-AE56-F38B0127E52C}|ConsoleAdventureGame.vcxproj|solutionrelative:level1.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1CC39613-A731-4067-AE56-F38B0127E52C}|ConsoleAdventureGame.vcxproj|C:\\Users\\jerfi\\OneDrive\\Documents\\GitHub\\AdventureGameInConsole\\level3.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{1CC39613-A731-4067-AE56-F38B0127E52C}|ConsoleAdventureGame.vcxproj|solutionrelative:level3.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1CC39613-A731-4067-AE56-F38B0127E52C}|ConsoleAdventureGame.vcxproj|C:\\Users\\jerfi\\OneDrive\\Documents\\GitHub\\AdventureGameInConsole\\level2.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{1CC39613-A731-4067-AE56-F38B0127E52C}|ConsoleAdventureGame.vcxproj|solutionrelative:level2.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "level3.txt",
+              "DocumentMoniker": "C:\\Users\\jerfi\\OneDrive\\Documents\\GitHub\\AdventureGameInConsole\\level3.txt",
+              "RelativeDocumentMoniker": "level3.txt",
+              "ToolTip": "C:\\Users\\jerfi\\OneDrive\\Documents\\GitHub\\AdventureGameInConsole\\level3.txt",
+              "RelativeToolTip": "level3.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-10-21T17:13:29.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "level2.txt",
+              "DocumentMoniker": "C:\\Users\\jerfi\\OneDrive\\Documents\\GitHub\\AdventureGameInConsole\\level2.txt",
+              "RelativeDocumentMoniker": "level2.txt",
+              "ToolTip": "C:\\Users\\jerfi\\OneDrive\\Documents\\GitHub\\AdventureGameInConsole\\level2.txt",
+              "RelativeToolTip": "level2.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-10-19T20:17:50.192Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "level1.txt",
+              "DocumentMoniker": "C:\\Users\\jerfi\\OneDrive\\Documents\\GitHub\\AdventureGameInConsole\\level1.txt",
+              "RelativeDocumentMoniker": "level1.txt",
+              "ToolTip": "C:\\Users\\jerfi\\OneDrive\\Documents\\GitHub\\AdventureGameInConsole\\level1.txt",
+              "RelativeToolTip": "level1.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-10-19T18:22:51.342Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ConsoleAdventureGame.cpp",
+              "DocumentMoniker": "C:\\Users\\jerfi\\OneDrive\\Documents\\GitHub\\AdventureGameInConsole\\ConsoleAdventureGame.cpp",
+              "RelativeDocumentMoniker": "ConsoleAdventureGame.cpp",
+              "ToolTip": "C:\\Users\\jerfi\\OneDrive\\Documents\\GitHub\\AdventureGameInConsole\\ConsoleAdventureGame.cpp",
+              "RelativeToolTip": "ConsoleAdventureGame.cpp",
+              "ViewState": "AgIAAMwAAAAAAAAAAAAAANMAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-10-13T17:21:06.514Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
