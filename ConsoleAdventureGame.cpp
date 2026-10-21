@@ -13,7 +13,7 @@ enum Obstacles
     EXIT                   
 };                         
                            
-struct MC                  
+struct MC          // Main Character
 {                          
     char nom;              
     int posX;              
@@ -37,14 +37,14 @@ bool level_loader(const std::string& filename, int* mapArray, int maxMapX, int m
     }
 
     enemies.clear();
-    bool heroTrouve = false;
+    bool heroFound = false;
 
     hero.posX = 0;
     hero.posY = 0;
 
 
 
-    int EN{};
+    int EN{};       // as in ENemy
 
     char tile;
 
@@ -65,7 +65,7 @@ bool level_loader(const std::string& filename, int* mapArray, int maxMapX, int m
                     hero.posX = x;
                     hero.posY = y;
                     mapArray[index] = GROUND;
-                    heroTrouve = true;
+                    heroFound = true;
                     break;
                 case 'X':
                     enemies.push_back({ 'X', x, y });
@@ -137,8 +137,8 @@ int main()
 
     std::string levelFileName = "level" + std::to_string(currentLevel) + ".txt";
     if (!level_loader(levelFileName, pMap, maxMapX, maxMapY, H, Enemies)) {
-        std::cout << "Erreur: Impossible de charger le fichier " << levelFileName << "\n";
-        std::cout << "Avez-vous cree les fichiers level1.txt, level2.txt, etc. ?\n";
+        std::cerr << "Error:could not load the file " << levelFileName << '\n';
+        std::cout << "Have you created the files level1.txt, level2.txt, etc. ?\n";
         return 1;
     }
 
@@ -146,7 +146,7 @@ int main()
 
 
         show_map(20, 10, H, Enemies, pMap);
-        std::cout << "\nHP: " << H.HP << '/' << maxHP << " | Niveau: " << currentLevel << "\n";
+        std::cout << "\nHP: " << H.HP << '/' << maxHP << " | Level: " << currentLevel << "\n";
 
         while (direction != 'z' && direction != 'Z' && direction != 'q' && direction != 'Q' && direction != 's' && direction != 'S' && direction != 'd' && direction != 'D') {
             direction = _getch();
