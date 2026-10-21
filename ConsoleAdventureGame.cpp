@@ -44,7 +44,6 @@ bool level_loader(const std::string& filename, int* mapArray, int maxMapX, int m
 
 
 
-    int EN{};       // as in ENemy
 
     char tile;
 
@@ -148,9 +147,7 @@ int main()
         show_map(20, 10, H, Enemies, pMap);
         std::cout << "\nHP: " << H.HP << '/' << maxHP << " | Level: " << currentLevel << "\n";
 
-        while (direction != 'z' && direction != 'Z' && direction != 'q' && direction != 'Q' && direction != 's' && direction != 'S' && direction != 'd' && direction != 'D') {
-            direction = _getch();
-        }
+        direction = _getch();
 
         int newCoordX = H.posX;
         int newCoordY = H.posY;
